@@ -34,10 +34,11 @@ const ToDoList = () => {
   const addToDo = (todo) => {
     if (!todo) {
       alert("Please add task ");
+    } else {
+      dispatch(addTask(todo));
+      dispatch(editToggle(false));
+      setTask("");
     }
-    dispatch(addTask(todo));
-    dispatch(editToggle(false));
-    setTask("");
   };
 
   // selected todo item for edit
