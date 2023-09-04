@@ -76,7 +76,7 @@ const ToDoList = () => {
         />
       </div>
       <p className="text-3xl font-bold underline text-white mt-5">
-        Your TaskList :{" "}
+        Your TaskList :
       </p>
 
       {/* Component for the display of All Task */}
