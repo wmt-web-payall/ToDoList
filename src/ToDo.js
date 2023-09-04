@@ -3,40 +3,40 @@ import React, { useEffect, useState } from "react";
 const ToDo = () => {
   const getItems = () => {
     let listData = JSON.parse(localStorage.getItem("lists"));
-    console.log("listData",listData)
+    console.log("listData", listData);
     return listData;
- 
   };
   // useEffect(()=> {
   //   let listData = JSON.parse(localStorage.getItem("lists"));
   //   setTasklist(listData);
   // },[]);
-  
-  const [task, setTask] = useState(" ");
+
+  const [task, setTask] = useState("");
   const [tasklist, setTasklist] = useState(getItems());
   // const [tasklist, setTasklist] = useState([]);
-  
+
   const [edittask, setEditTask] = useState(null);
   const [isedit, setIsEdit] = useState(false);
-  
+
   useEffect(() => {
     localStorage.setItem("lists", JSON.stringify(tasklist));
-    console.log("in useEffect 1")
+    console.log("in useEffect 1");
   }, [tasklist]);
-  
+
   const handlerAdd = () => {
-    if (task.length == '0') {
+    if (!task.length) {
       alert("please fill data");
     } else if (task && isedit) {
-      setTasklist(
-        tasklist.map((data) => {
+      // setTasklist();
+      setTasklist((prevState) => {
+        prevState.map((data) => {
           if (data.id === edittask) {
             return { ...data, name: task };
           }
           return data;
-        })
-      );
-      setTask(" ");
+        });
+      });
+      setTask("");
       setIsEdit(false);
     } else {
       const allTodos = { id: new Date().getTime().toString(), name: task };
@@ -59,7 +59,7 @@ const ToDo = () => {
 
   const handlerDelete = (id) => {
     const newlists = tasklist.filter((item) => {
-      return id != item.id;
+      return id !== item.id;
     });
     setTasklist(newlists);
   };
@@ -67,7 +67,6 @@ const ToDo = () => {
   const handleDeleteall = () => {
     setTasklist([]);
   };
-
 
   return (
     <div className="bg-[#16171B] w-screen h-screen p-14">
@@ -81,19 +80,22 @@ const ToDo = () => {
         {isedit ? (
           <button
             className="rounded-full bg-zinc-200 w-16 h-10 text-blue-400"
-            onClick={()=>handlerAdd()}
+            onClick={() => handlerAdd()}
           >
             save
           </button>
         ) : (
           <button
             className="rounded-full bg-zinc-200 text-blue-400 w-16 h-10"
-            onClick={()=>handlerAdd()}          >
+            onClick={() => handlerAdd()}
+          >
             add
           </button>
         )}
       </div>
-      <p className="text-3xl font-bold underline text-white mt-5">Your TaskList : </p>
+      <p className="text-3xl font-bold underline text-white mt-5">
+        Your TaskList :{" "}
+      </p>
 
       {tasklist.map((t) => {
         return (
