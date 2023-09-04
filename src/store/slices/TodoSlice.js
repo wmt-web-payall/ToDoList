@@ -1,7 +1,6 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-
   todos: [],
   edittodo: null,
   isEdit: false,
@@ -11,37 +10,29 @@ const TodoSlice = createSlice({
   name: "todoitem",
   initialState,
   reducers: {
-    // addTask(state, action) {
-    //   console.log("hii");
-    //   console.log(action);
-    //   const todo= {id: new Date().getTime().toString(), name: action.payload}
-    //   state.push(todo);
-    // },
+
+    //add task in the list 
     addTask(state, action) {
       const todo = {
-        id: Math.ceil(Math.random() * 100),
+        id: Math.ceil(Math.random() * 100), 
         text: action.payload,
       };
       state.todos.push(todo);
-      console.log("addtodo", state.todos);
     },
-    removeTask(state, action) {
-      //   let removetask = state.todos.filter((todo) => todo.id !== action.payload);
-      console.log("-------------", action.payload);
-      console.log("-------------", state.todos);
 
+    // filter value and update state with not matching id
+    removeTask(state, action) {
       state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
+
+    //find the edit task value from state
     editTask(state, action) {
       const editTodo = action.payload;
-      console.log("editTodo", editTodo);
-
       state.edittodo = state.todos.find((todo) => todo.id === editTodo);
-      console.log("-------------", current(state.edittodo));
     },
 
+    //find value in state  with same edittodo id  and update the text
     updateTask(state, action) {
-      console.log("updatetask", action.payload);
       state.edittodo.text = action.payload;
       const updatedtask = state.todos.find(
         (todo) => todo.id === state.edittodo.id
@@ -49,20 +40,18 @@ const TodoSlice = createSlice({
       updatedtask.text = state.edittodo.text;
     },
 
+    //change the toggle state based on click of  edit button
     editToggle(state, action) {
-      console.log(action.payload);
       state.isEdit = action.payload;
     },
 
-   
-    deleteAllTask(state, action) {
+    //delete all todo by assigning empty state
+    deleteAllTask(state) {
       state.todos = [];
     },
   },
 });
 
-console.log(TodoSlice.actions);
-console.log("edittask reducer", TodoSlice.actions.editTask);
 export default TodoSlice.reducer;
 export const {
   addTask,
