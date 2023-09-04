@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   todos: [],
-  edittodo: null,
+  editToDo: null,
   isEdit: false,
 };
 
@@ -28,16 +28,16 @@ const TodoSlice = createSlice({
     //find the edit task value from state
     editTask(state, action) {
       const editTodo = action.payload;
-      state.edittodo = state.todos.find((todo) => todo.id === editTodo);
+      state.editToDo = state.todos.find((todo) => todo.id === editTodo);
     },
 
     //find value in state  with same edittodo id  and update the text
     updateTask(state, action) {
-      state.edittodo.text = action.payload;
+      state.editToDo.text = action.payload;
       const updatedtask = state.todos.find(
-        (todo) => todo.id === state.edittodo.id
+        (todo) => todo.id === state.editToDo.id
       );
-      updatedtask.text = state.edittodo.text;
+      updatedtask.text = state.editToDo.text;
     },
 
     //change the toggle state based on click of  edit button

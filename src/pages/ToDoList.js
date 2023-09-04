@@ -21,7 +21,7 @@ const ToDoList = () => {
   let isEdit = useSelector((state) => {
     return state.todoitems.isEdit;
   });
-  const editTodo = useSelector((state) => state.todoitems.edittodo);
+  const editTodo = useSelector((state) => state.todoitems.editToDo);
 
   //show edit value in input field if there is a value for edit
   useEffect(() => {
